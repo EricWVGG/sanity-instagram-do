@@ -65,7 +65,7 @@ Before running locally, I suggest pulling up Sanity Studio in a web browser wind
 - go to `/packages/sanity-instagram-do/post` and run `npm run build`
 - then run `node -e 'import("./lib/index.js").then( loadedModule => loadedModule.main() )'`
 
-If it was successful, the 20 latest Instagram posts should now be in Sanity. Also, you can go the Site document; the access token should be refreshed with a new token that will last 60 days. That token is refreshed every time this script is run, so as long as you've got it on a cron for at least once every 59 days, it should stay fresh forever.
+If it was successful, the 20 latest Instagram posts should appear in Sanity. Also, go the Site document; the access token should be replaced with a new token that will last 60 days. That token is refreshed every time this script is run, so as long as you've got it on a cron for at least once every 59 days, it should stay fresh forever.
 
 ## To deploy…
 
