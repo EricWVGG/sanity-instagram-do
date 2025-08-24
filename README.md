@@ -52,7 +52,7 @@ You're going to need to create an Instagram app, and retrieve a ”long-lived ac
 
 So, why are we storing the access token in Sanity instead of an `.env` file? That token only lasts sixty days — you'll be coming back and manually updating and redeploying this function forever if we did that. So instead it gets stored in Sanity.
 
-Go into your Sanity Studio, and edit your Site document. Fill in that access token and publish the document.
+Go into your Sanity Studio, and edit your Site document. “Seed” it with that access token and publish the document.
 
 ### Digital Ocean
 
@@ -60,10 +60,12 @@ If you’re not already familiar with them already, here is a [guide to Digital 
 
 Customize the `project.yml` file. You can alter the RAM limit (all the functions I’ve written seem to choke on under 512mb). Timeout should be generous, connecting to all these third-parties takes time. And there’s a familiar CRON schedule at the bottom.
 
-To run locally…
+Before running locally, I suggest pulling up Sanity Studio in a web browser window, with the Instagram Post document type selected.
 
 - go to `/packages/sanity-instagram-do/post` and run `npm run build`
 - then run `node -e 'import("./lib/index.js").then( loadedModule => loadedModule.main() )'`
+
+If it was successful, the 20 latest Instagram posts should now be in Sanity. Also, you can go the Site document; the access token should be refreshed with a new token that will last 60 days. That token is refreshed every time this script is run, so as long as you've got it on a cron for at least once every 59 days, it should stay fresh forever.
 
 ## To deploy…
 
