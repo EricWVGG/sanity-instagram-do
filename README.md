@@ -48,11 +48,15 @@ Now for the difficult part.
 
 You're going to need to create an Instagram app, and retrieve a ”long-lived access token”. I followed [these directions by Ming Shen Choo](https://cming0721.medium.com/instagram-feeds-with-instagram-api-part-1-create-app-and-token-4a91ee3bd154). You only need to follow the steps on part one of this two-part article, but don’t worry, there’s _a lot_ of them.
 
+When you connect the Instagram account, I suggest that you turn off _all_ permissions except for viewing the feed. Giving the token permissions to private messages is totally unnecessary and even pretty risky.
+
 ### Access Token
 
 So, why are we storing the access token in Sanity instead of an `.env` file? That token only lasts sixty days — you'll be coming back and manually updating and redeploying this function forever if we did that. So instead it gets stored in Sanity.
 
 Go into your Sanity Studio, and edit your Site document. “Seed” it with that access token and publish the document.
+
+_note:_ Going forward, it would be a really good idea to _not_ query the `instagramAccessToken` field with Groq. Don’t use `...` shorthand to pull all fields from `site`, either.
 
 ### Digital Ocean
 
@@ -60,12 +64,14 @@ If you’re not already familiar with them already, here is a [guide to Digital 
 
 Customize the `project.yml` file. You can alter the RAM limit (all the functions I’ve written seem to choke on under 512mb). Timeout should be generous, connecting to all these third-parties takes time. And there’s a familiar CRON schedule at the bottom.
 
-Before running locally, I suggest pulling up Sanity Studio in a web browser window, with the Instagram Post document type selected.
+Before running locally, I suggest pulling up Sanity Studio in a web browser window, with the Instagram Post document type selected. This is gonna be fun.
 
 - go to `/packages/sanity-instagram-do/post` and run `npm run build`
 - then run `node -e 'import("./lib/index.js").then( loadedModule => loadedModule.main() )'`
 
-If it was successful, the 20 latest Instagram posts should appear in Sanity. Also, go the Site document; the access token should be replaced with a new token that will last 60 days. That token is refreshed every time this script is run, so as long as you've got it on a cron for at least once every 59 days, it should stay fresh forever.
+If it was successful, the 20 latest Instagram posts should automagically appear in Sanity (I love seeing that).
+
+Also, go the Site document; the access token should be replaced with a new token that will last 60 days. That token should _not_ match the one you filled in; it is refreshed every time this script is run, so as long as you've got it on a cron for at least once every 59 days, it should stay fresh forever.
 
 ## To deploy…
 
