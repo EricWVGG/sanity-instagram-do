@@ -1,0 +1,14 @@
+{
+  "main": "lib/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "@sanity/client": "^7.9.0",
+    "groq": "^4.5.0"
+  },
+  "devDependencies": {
+    "typescript": "^5"
+  }
+}

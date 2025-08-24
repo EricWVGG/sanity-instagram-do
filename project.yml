@@ -1,0 +1,32 @@
+parameters: {}
+environment: {}
+packages:
+  - name: sanity-instagram-do
+    shared: false
+    environment: {}
+    parameters: {}
+    annotations: {}
+    functions:
+      - name: post
+        binary: false
+        main: ""
+        runtime: nodejs:18
+        web: true
+        webSecure: false
+        parameters: {}
+        environment:
+          {
+            MAX_ATTEMPTS: "${MAX_ATTEMPTS}",
+            PAUSE_BETWEEN_ATTEMPTS: "${PAUSE_BETWEEN_ATTEMPTS}",
+            SANITY_PROJECT_ID: "${SANITY_PROJECT_ID}",
+            SANITY_DATASET: "${SANITY_DATASET}",
+            SANITY_API_VERSION: "${SANITY_API_VERSION}",
+            SANITY_SECRET_TOKEN: "${SANITY_SECRET_TOKEN}",
+          }
+        annotations: {}
+        limits: { memory: 512 }
+        triggers:
+          - name: every-weekday
+            sourceType: scheduler
+            sourceDetails:
+              cron: "5 1 * * *"
