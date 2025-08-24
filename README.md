@@ -93,3 +93,7 @@ If we connected to Sanity first to get existing post IDs, we could skip all know
 I haven’t tested this with video posts at all.
 
 I might bake another version of this that uses NextJS API functions if there’s any interest. Unfortunately, my hosts don’t support CRON tasks, but it would work great with Vercel.
+
+## Thanks
+
+Big props to Ming Sheng Choo, without whom I never could have navigated the Meta Developers portal.
