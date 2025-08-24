@@ -19,6 +19,8 @@ SANITY_API_VERSION=
 SANITY_SECRET_TOKEN=
 ```
 
+The secret token does require `WRITE` privileges.
+
 ### Sanity
 
 You’ll need two document additions to your Sanity schema — an Instagram posts document, and a singleton document that can store the Instagram `access_token` (more on why that needs to be stored in Sanity later).
