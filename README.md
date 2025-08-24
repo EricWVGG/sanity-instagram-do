@@ -68,18 +68,21 @@ If you’re not already familiar with them already, here is a [guide to Digital 
 
 Customize the `project.yml` file. You can alter the RAM limit (all the functions I’ve written seem to choke on under 512mb). Timeout should be generous, connecting to all these third-parties takes time. And there’s a familiar CRON schedule at the bottom.
 
-Before running locally, I suggest pulling up Sanity Studio in a web browser window, with the Instagram Post document type selected. This is gonna be fun.
+To deploy, run `./deploy.sh` — which is just a shortcut for…
 
-- go to `/packages/sanity-instagram-do/post` and run `npm run build`
-- then run `node -e 'import("./lib/index.js").then( loadedModule => loadedModule.main() )'`
+```
+doctl sls deploy . --verbose-build --env ./.env
+```
+
+To test locally, I suggest pulling up Sanity Studio in a web browser window, with the Instagram Post document type selected. This is gonna be fun.
+
+```
+doctl sls functions invoke sanity-instagram-do/post
+```
 
 If it was successful, the 20 latest Instagram posts should automagically appear in Sanity (I love seeing that).
 
-Also, go the Site document; the access token should be replaced with a new token that will last 60 days. That token should _not_ match the one you filled in; it is refreshed every time this script is run, so as long as you've got it on a cron for at least once every 59 days, it should stay fresh forever.
-
-## To deploy…
-
-- from root: `doctl sls deploy . --verbose-build --env ./.env`
+Also, go the Site document; the access token should be replaced with a new one. That token should _not_ match the one you filled in; it is refreshed every time this script is run, so as long as you've got it on a cron for at least once every 59 days, it should stay fresh forever.
 
 ## Future
 
