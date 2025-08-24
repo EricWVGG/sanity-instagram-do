@@ -4,7 +4,9 @@ This is a Digital Ocean serverless function that will import an Instagram feed i
 
 I assume that you’re coming to this with pretty good familiarity with Sanity. You’ll also be dabbling in the Meta Developers portal, and of course Digital Ocean’s serverless functions platform.
 
-Instructions for dealing with DO and Meta is outside the scope of this document, but I’ve provided links to resources I found helpful.
+Instructions for dealing with DO and Meta are outside the scope of this document, but I’ve provided links to resources I found helpful.
+
+It should be pretty easy to adapt this code to other platforms like AWS lambda. It would also work really well as a NextJS API function, provided that your host supports CRON tasks (Vercel does; DO and Render do not).
 
 ## Steps
 
@@ -86,3 +88,5 @@ This function gets the latest 20 posts from Instagram, downloads _all_ their att
 If we connected to Sanity first to get existing post IDs, we could skip all known posts from Instagram. That would make this run much faster (serverless functions charge by the second!).
 
 I haven’t tested this with video posts at all.
+
+I might bake another version of this that uses NextJS API functions if there’s any interest. Unfortunately, my hosts don’t support CRON tasks, but it would work great with Vercel.
