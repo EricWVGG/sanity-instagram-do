@@ -7,7 +7,6 @@ export const regenerateToken = async (INSTAGRAM_LONG_TOKEN: string) => {
     }
     const decoded = await newTokenData.json()
     const newToken: string = decoded.access_token
-
     return newToken
   } catch (error) {
     return { error }

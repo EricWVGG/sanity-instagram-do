@@ -13,10 +13,10 @@ const siteQuery = defineQuery(`
 
 export const main = async () => {
   try {
-    /* set up Sanity */
+    /* set up Sanity client */
     const client = getApiClient()
 
-    /* get token from Sanity */
+    /* get Instagram access token from Sanity */
     const siteDocument = await client.fetch(siteQuery)
     if (!siteDocument) {
       throw new Error("Error retrieving Site document from Sanity.")
@@ -26,10 +26,13 @@ export const main = async () => {
     }
     const INSTAGRAM_LONG_TOKEN = siteDocument.instagramAccessToken
 
+    /* get posts from Instagram */
     const posts = await getInstagramFeed(INSTAGRAM_LONG_TOKEN)
 
+    // insert posts in Sanity */
     const r = await insertPostsToSanity(client, posts)
 
+    /* get new Instagram access token */
     const newToken = await regenerateToken(INSTAGRAM_LONG_TOKEN)
 
     /* update token in Sanity */
