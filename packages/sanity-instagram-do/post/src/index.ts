@@ -17,15 +17,14 @@ export const main = async () => {
     const client = getApiClient()
 
     /* get token from Sanity */
-    const siteSettings = await client.fetch(siteQuery)
-    if (!siteSettings) {
-      throw new Error("Error retrieving site settings from Sanity.")
+    const siteDocument = await client.fetch(siteQuery)
+    if (!siteDocument) {
+      throw new Error("Error retrieving Site document from Sanity.")
     }
-    if (!siteSettings.instagramAccessToken) {
+    if (!siteDocument.instagramAccessToken) {
       throw new Error("Missing access token.")
     }
-    const INSTAGRAM_LONG_TOKEN = siteSettings.instagramAccessToken
-    const siteSettingsId = siteSettings._id
+    const INSTAGRAM_LONG_TOKEN = siteDocument.instagramAccessToken
 
     const posts = await getInstagramFeed(INSTAGRAM_LONG_TOKEN)
 
@@ -35,7 +34,7 @@ export const main = async () => {
 
     /* update token in Sanity */
     await client
-      .patch(siteSettingsId)
+      .patch(siteDocument._id)
       .set({
         instagramAccessToken: newToken,
       })

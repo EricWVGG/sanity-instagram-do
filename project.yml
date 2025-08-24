@@ -14,17 +14,9 @@ packages:
         web: true
         webSecure: false
         parameters: {}
-        environment:
-          {
-            MAX_ATTEMPTS: "${MAX_ATTEMPTS}",
-            PAUSE_BETWEEN_ATTEMPTS: "${PAUSE_BETWEEN_ATTEMPTS}",
-            SANITY_PROJECT_ID: "${SANITY_PROJECT_ID}",
-            SANITY_DATASET: "${SANITY_DATASET}",
-            SANITY_API_VERSION: "${SANITY_API_VERSION}",
-            SANITY_SECRET_TOKEN: "${SANITY_SECRET_TOKEN}",
-          }
+        environment: { SANITY_PROJECT_ID: "${SANITY_PROJECT_ID}", SANITY_DATASET: "${SANITY_DATASET}", SANITY_API_VERSION: "${SANITY_API_VERSION}", SANITY_SECRET_TOKEN: "${SANITY_SECRET_TOKEN}" }
         annotations: {}
-        limits: { memory: 512 }
+        limits: { memory: 512, timeout: 15000 }
         triggers:
           - name: every-weekday
             sourceType: scheduler
