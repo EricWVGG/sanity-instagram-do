@@ -84,6 +84,12 @@ If it was successful, the 20 latest Instagram posts should automagically appear 
 
 Also, go the Site document; the access token should be replaced with a new one. That token should _not_ match the one you filled in; it is refreshed every time this script is run, so as long as you've got it on a cron for at least once every 59 days, it should stay fresh forever.
 
+### Cleanup
+
+I suggest that you go back into the `Site` schema and mark the `instagramAccessToken` as `hidden` and `readOnly`. Don’t let your users tamper with this thing.
+
+If for some reason the access token is invalidated, you will need to seed Sanity with a new one.
+
 ## Future
 
 This function gets the latest 20 posts from Instagram, downloads _all_ their attached images, and then upserts on Sanity.
@@ -93,6 +99,8 @@ If we connected to Sanity first to get existing post IDs, we could skip all know
 I haven’t tested this with video posts at all.
 
 I might bake another version of this that uses NextJS API functions if there’s any interest. Unfortunately, my hosts don’t support CRON tasks, but it would work great with Vercel.
+
+I do wonder if I shouldn’t have just set this up as a NextJS API route, and made the serverless function just do a GET against that endpoint. Would make this thing a lot simpler, and move the Instagram logic to a place that’s more easily tested. Hm.
 
 ## Thanks
 
